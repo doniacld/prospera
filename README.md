@@ -1,2 +1,3 @@
-# prospera
-Empowering you to earn what you deserve
+# Prospera
+
+**Empowering you to earn what you deserve!**
