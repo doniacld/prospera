@@ -1,0 +1,3 @@
+run_backend:
+	cd app && go run ./...
+
