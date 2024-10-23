@@ -6,8 +6,8 @@ import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 
-	"github.com/doniacld/prospera/app/negotrain"
-	"github.com/doniacld/prospera/app/salarybench"
+	"github.com/doniacld/prospera/app/negotiation"
+	"github.com/doniacld/prospera/app/salary"
 )
 
 func main() {
@@ -21,8 +21,13 @@ func main() {
 		AllowCredentials: true,
 	}))
 
-	r.GET("/salarybench", salarybench.GetSalaryBenchMarkHandler)
-	r.POST("/negotiation", negotrain.NegotiationChatHandler)
+	// TODO not sure if we need it
+	r.GET("/salary", salary.StartNegotiationHandler)
+	r.GET("/negotiation", negotiation.StartNegotiationHandler)
+
+	// Websocket endpoints to chat with Prospera
+	r.GET("/ws/salary", salary.SalaryChatWebsocketHandler)
+	r.GET("/ws/negotiation", negotiation.NegotiationChatWebsocketHandler)
 
 	// start server
 	err := r.Run(":8080")
