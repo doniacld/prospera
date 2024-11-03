@@ -1,0 +1,12 @@
+{
+  "userId": "12345",
+  "jobTitle": "Software Engineer",
+  "YearsExperience": 2,
+  "Location": "South of France",
+  "CurrentSalary": 40000,
+  "DesiredSalary": 50000,
+  "Skills": ["Go", "React", "SQL"],
+  "Industry": "Tech",
+  "Major": "Computer Science",
+  "Diploma": "Bachelor's Degree"
+}

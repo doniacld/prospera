@@ -13,6 +13,8 @@ import (
 func main() {
 	r := gin.Default()
 
+	salary.NewSalaryBenchmark()
+
 	// Configure CORS
 	r.Use(cors.New(cors.Config{
 		AllowOrigins:     []string{"http://localhost:3000"},  // Frontend origin
@@ -24,6 +26,8 @@ func main() {
 	// TODO not sure if we need it
 	r.GET("/salary", salary.StartNegotiationHandler)
 	r.GET("/negotiation", negotiation.StartNegotiationHandler)
+
+	r.POST("/salary/benchmark", salary.PostSalaryBenchmarkHandler)
 
 	// Websocket endpoints to chat with Prospera
 	r.GET("/ws/salary", salary.SalaryChatWebsocketHandler)
