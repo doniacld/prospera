@@ -2,11 +2,9 @@ package salary
 
 import (
 	"fmt"
-	"net/http"
-	"strconv"
-
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
+	"net/http"
 )
 
 var upgrader = websocket.Upgrader{
@@ -15,17 +13,10 @@ var upgrader = websocket.Upgrader{
 
 // SalaryChatWebsocketHandler is the websocket endpoint handler for salary benchmark chat.
 func SalaryChatWebsocketHandler(c *gin.Context) {
-
-	// Extract query parameters
-	yearsExperience, err := strconv.Atoi(c.Query("experience"))
-	if err != nil {
-		http.Error(c.Writer, "Years of experience is not a number", http.StatusBadRequest)
-	}
-
-	sb := SalaryBenchmark{
-		JobTitle:        c.Query("jobTitle"),
-		YearsExperience: yearsExperience,
-		Location:        c.Query("location"),
+	userID := c.Query("userID")
+	sb, ok := SalaryBenchmarkPerUser[userID]
+	if !ok {
+		http.Error(c.Writer, "User not found", http.StatusBadRequest)
 	}
 
 	// Upgrade HTTP request to WebSocket
