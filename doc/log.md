@@ -88,3 +88,13 @@ Maybe I should use the chat stream.
 - Cleaning my work and branches because I am not alone anymore.
 
 
+# 22.10.24
+
+- Changing all the endpoints to move to websocket logic in the backend so I can actually implement a real chat!
+
+# 23.10.24
+
+- Testing the websocket chat implemented yesterday, tuning it with nice intro messages
+- Testing with a basic frontend to see what it looks like
+- 
+
