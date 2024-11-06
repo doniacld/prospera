@@ -1,0 +1,3 @@
+[submodule "prospera-app"]
+	path = prospera-app
+	url = https://github.com/doniacld/prospera.git
