@@ -1,0 +1,683 @@
+/*HomePage Styling*/
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Reem Kufi", sans-serif !important;
+}
+img {
+  max-width: 100%;
+  height: auto;
+}
+.App {
+  min-height: 100vh;
+  width: 100;
+  max-width: 1900px;
+  margin: 0rem auto;
+}
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  background-color: #f6f6f6;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 90px;
+}
+.navbar-menu-container {
+  display: none;
+}
+.navbar-links-container a {
+  margin-right: 3rem;
+  text-decoration: none;
+  color: black;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+.primary-button {
+  padding: 0.9rem 1.75rem;
+  background-color: white;
+  outline: none;
+  border: none;
+  border-radius: 5rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.2s;
+}
+.navbar-cart-icon {
+  font-size: 1.15rem;
+}
+.primary-button:hover {
+  background-color: rgb(234, 234, 234);
+}
+.navbar-menu-container svg {
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+.navbar-link {
+  text-decoration: none;
+  padding: 10px 15px; /* spacing around the link */
+  border-radius: 5px; /* round corners */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.navbar-link:hover {
+  background-color: #426B1F; /* change background on hover */
+  color: white; /* change text color */
+}
+
+.navbar-link.active {
+  background-color: #426B1F; /* active state background */
+  color: white; /* active state text color */
+}
+
+.home-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.home-banner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.home-slider-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.slider-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.7; /* Slight transparency */
+  transition: opacity 1s ease-in-out;
+}
+.overlay-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: #fff;
+  z-index: 1;
+}
+.secondary-text {
+  font-size: 1.5rem;
+  margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+  .primary-heading {
+    font-size: 2rem;
+  }
+
+  .secondary-text {
+    font-size: 1rem;
+  }
+}
+
+.home-bannerImage-container {
+  position: absolute;
+  top: -100px;
+  right: -170px;
+  z-index: -2;
+  max-width: 700px;
+}
+.home-image-section {
+  max-width: 600px;
+  flex: 1;
+}
+.home-text-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+.primary-heading {
+  font-size: clamp(2rem, 5vw, 4rem);
+  color: #4c4c4c;
+  /* line-height: 5rem; */
+  max-width: 850px;
+}
+.primary-text {
+  font-size: clamp(1rem, 3vw, 1.5rem);
+  max-width: 700px;
+  color: #6a6a6a;
+  margin: 1.5rem 0rem;
+}
+.secondary-button {
+  padding: 1rem 2.5rem;
+  background-color: #426B1F;
+  outline: none;
+  border: none;
+  border-radius: 5rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+  font-weight: 600;
+  color: white;
+  transition: 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.secondary-button svg {
+  margin-left: 0.75rem;
+  font-size: 1.5rem;
+}
+
+
+.secondary-button:hover {
+  background-color: #426B1F;
+}
+.about-section-container {
+  margin-top: 3rem;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.about-background-image-container {
+  position: absolute;
+  left: -50px;
+  z-index: -2;
+}
+.about-section-image-container {
+  height: 80;
+  width: 500px;
+  margin-right: 8rem;
+  
+}
+.about-section-text-container {
+  flex: 1;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+}
+.primary-subheading {
+  font-weight: 700;
+  color: #fe9e0d;
+  font-size: 1.15rem;
+}
+
+.contact-page-wrapper{
+  margin-top: 5rem;
+}
+.contact-page-wrapper h1 {
+  max-width: 900px !important;
+}
+.contact-page-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 6rem 0rem;
+}
+.contact-page-wrapper
+.contact-form-container {
+  background-color: white;
+  max-width: 700px;
+  width: 100%;
+  margin-top: 3rem;
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border-radius: 5rem;
+}
+.contact-form-container input {
+  flex: 1;
+  height: 100%;
+  border: none;
+  outline: none;
+  font-size: 1.3rem;
+  padding: 0.5rem 1rem;
+}
+
+.footer-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: transparent; /* White background */
+  color: #333; /* Dark text color */
+  padding: 40px 20px; /* Adequate padding for spacing */
+  border-top: 1px solid #e0e0e0; /* Light border for separation */
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centered content */
+  margin-bottom: 20px; /* Space between content and bottom */
+}
+
+.footer-logo {
+  width: 100px; /* Smaller logo size */
+  margin-bottom: 10px; /* Space below the logo */
+}
+
+.footer-description {
+  text-align: center; /* Centered text */
+  margin-bottom: 10px; /* Space below description */
+}
+
+.footer-info {
+  text-align: center;
+  margin-top: 10px; /* Space between description and social icons */
+}
+
+.footer-icons {
+  display: flex;
+  gap: 20px; /* Space between icons */
+  margin-top: 5px; /* Space above icons */
+  font-size: 24px; /* Icon size */
+}
+
+.footer-bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 14px; /* Adjust font size */
+  color: #666; /* Light gray for bottom text */
+}
+
+.footer-links {
+  display: flex;
+  gap: 30px; /* Space between links */
+  margin-top: 5px; /* Space above links */
+}
+
+.footer-links span {
+  cursor: pointer; /* Change cursor to pointer for links */
+  transition: color 0.3s; /* Smooth transition for hover */
+}
+
+.footer-links span:hover {
+  color: #007BFF; /* Change color on hover */
+}
+
+.work-section-wrapper {
+  margin-top: 5rem;
+}
+.work-section-top p {
+  text-align: center;
+  max-width: 600px !important;
+}
+.work-section-top h1 {
+  max-width: 700px !important;
+}
+.work-section-top {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.work-section-info {
+  width: 290px;
+  min-height: 350px;
+  background-color: white;
+  padding: 1rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border-radius: 1rem;
+  color: #505050;
+  margin: 1rem 2rem;
+}
+.work-section-info h2 {
+  margin: 1rem 0rem;
+}
+
+.work-section-bottom {
+  margin-top: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.work-section-info p {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+}
+
+@media (max-width: 1000px) {
+  .navbar-links-container a {
+    margin-right: 1rem;
+    font-size: 1rem;
+  }
+  .primary-button {
+    font-size: 1rem;
+  }
+  .home-bannerImage-container {
+    max-width: 600px;
+  }
+}
+@media (max-width: 800px) {
+  .nav-logo-container {
+    max-width: 140px;
+  }
+  .navbar-links-container {
+    display: none;
+  }
+  .navbar-menu-container {
+    display: flex;
+  }
+  .home-bannerImage-container {
+    max-width: 450px;
+  }
+  .home-banner-container,
+  .about-section-container {
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: center;
+  }
+  .about-section-container {
+    flex-direction: column;
+  }
+  .home-image-section,
+  .about-section-image-container {
+    width: 100%;
+    max-width: 400px;
+  }
+  .primary-heading {
+    text-align: center;
+    max-width: 90%;
+  }
+  .primary-text {
+    text-align: center;
+    max-width: 80%;
+  }
+  .home-text-section,
+  .about-section-text-container {
+    justify-content: center;
+    align-items: center;
+    margin-top: 4rem;
+  }
+  .secondary-button {
+    font-size: 1rem;
+    padding: 0.8rem 2rem;
+    cursor: pointer;
+  }
+  .about-section-container {
+    margin-top: 5rem !important;
+  }
+  .about-buttons-container {
+    justify-content: center;
+    flex-direction: column;
+  }
+  .primary-subheading {
+    text-align: center;
+  }
+  .watch-video-button {
+    margin-left: 0rem !important;
+    margin-top: 1rem;
+    font-size: 1rem !important;
+  }
+  .watch-video-button svg {
+    margin-right: 0.5rem !important;
+  }
+  .about-section-image-container {
+    margin-right: 0rem !important;
+  }
+  .work-section-wrapper {
+    margin-top: 5rem !important;
+  }
+  .work-section-bottom {
+    margin-top: 1rem !important;
+  }
+  .contact-form-container {
+    padding: 0.5rem !important;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1rem !important;
+  }
+  .contact-form-container input {
+    font-size: 1rem !important;
+    max-width: 100%;
+    padding: 0.5rem 1rem !important;
+    margin-bottom: 0.8rem !important;
+    text-align: center;
+  }
+  .footer-wrapper {
+    flex-direction: column;
+  }
+  .footer-section-two {
+    flex-direction: column;
+    margin-top: 2rem;
+  }
+  .footer-section-columns {
+    margin: 1rem 0rem;
+  }
+  .App {
+    max-width: 95vw;
+  }
+}
+@media (max-width: 600px) {
+  .home-bannerImage-container,
+  .about-background-image-container {
+    display: none;
+  }
+}
+.nav-logo-container img {
+  width: 150px; /* Adjust the width according to your preference */
+  height: auto; /* Maintain aspect ratio */
+}
+/* What We Believe section */
+.what-we-believe {
+  margin-top: 20px;  /* Adjust the space between the slider and text */
+  text-align: center;  /* Center the text */
+  padding: 20px;
+}
+
+.what-we-believe h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.what-we-believe p {
+  font-size: 18px;
+  line-height: 1.6;  /* Increase line spacing for better readability */
+}
+
+.lets-go-button {
+  background-color:  #426B1F; /* Set the default background color */
+  color: #fff; /* Text color */
+  border: none; /* Border color */
+  border-radius: 5px; /* Rounded corners */
+  padding: 15px 30px; /* Button padding */
+  font-size: 1.2rem; /* Font size */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: none;
+  margin-top: 20px; /* Space above the button */
+}
+.secondary-button-learn-more-button{
+  background-color:  #426B1F; /* Set the default background color */
+  color: #fff; /* Text color */
+  border: none; /* Border color */
+  border-radius: 5px; /* Rounded corners */
+  padding: 15px 30px; /* Button padding */
+  font-size: 1.2rem; /* Font size */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: none;
+  margin-top: 20px; /* Space above the button */
+}
+
+/*Chat Bot Page Styling*/
+
+
+.chatbot-container {
+  display: flex;
+  height: 100vh; /* Make it full height */
+}
+
+.chatbot-left {
+  width: 20%; /* Adjusted to 20% */
+  padding: 20px; /* Add some padding */
+  border-right: 1px solid #ccc; /* Optional: Add a divider */
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  background-color: rgba(66, 107, 31, 0.2); /* Light green background (adjust alpha for brightness) */
+}
+
+.chat-history-title {
+  font-size: 20px; /* Size for the title */
+  margin-bottom: 10px; /* Spacing below the title */
+}
+
+.chat-history {
+  max-height: 80%; /* Limit height for scrolling */
+  overflow-y: auto; /* Allow scrolling */
+  padding: 10px; /* Padding inside chat history */
+  background-color: #f0f0f0; /* Light background color */
+  border-radius: 10px; /* Rounded corners */
+}
+
+.chat-message {
+  margin: 5px 0; /* Space between messages */
+  padding: 10px; /* Padding inside message */
+  background-color: #ffffff; /* Background for messages */
+  border-radius: 5px; /* Rounded corners for messages */
+}
+
+.chatbot-right {
+  width: 80%; /* Adjust to take the rest of the space */
+  display: flex;
+  flex-direction: column;
+  padding: 20px; /* Add some padding */
+  justify-content: space-between; /* Space elements vertically */
+}
+
+.chatbot-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px; /* Spacing below header */
+}
+
+.prospera-text {
+  font-size: 24px; /* Adjust size */
+  font-weight: bold;
+}
+
+.profile-section {
+  display: flex;
+  align-items: center;
+}
+
+.profile-name {
+  margin-right: 10px; /* Space between name and icon */
+}
+
+.suggestions-section {
+  display: flex; /* Change to flex for horizontal layout */
+  justify-content: center; /* Center items horizontally */
+  align-items: center; /* Center items vertically */
+  margin: 20px 0; /* Spacing around suggestions */
+}
+
+.prospera-logo {
+  width: 100px; /* Adjust width */
+  margin-bottom: 10px; /* Space below logo */
+  align-items: center;
+}
+
+.suggestion-box {
+  width: 250px; /* Set a fixed width */
+  border: 2px solid #426B1F; /* Border color */
+  border-radius: 10px; /* Rounded corners */
+  padding: 10px; /* Padding inside box */
+  display: flex;
+  align-items: center;
+  background-color: #f9f9f9; /* Light background */
+  margin: 0 10px; /* Space between boxes horizontally */
+}
+
+.suggestion-box span {
+  margin-left: 5px; /* Space between icon and text */
+}
+
+.input-section {
+  display: flex;
+  align-items: center;
+  margin-top: auto; /* Push input section to the bottom */
+}
+
+.input-with-icon {
+  display: flex;
+  align-items: center;
+  position: relative; /* To position the icon */
+  flex: 1; /* Take available space */
+}
+
+.message-input {
+  width: 100%; /* Ensure the input takes full width */
+  border: 2px solid #426B1F; /* Border color */
+  border-radius: 10px; /* Rounded corners */
+  padding: 10px 40px 10px 40px; /* Add padding to make space for the icon */
+  margin-right: 10px; /* Space between input and send icon */
+}
+
+.attach-icon {
+  position: absolute; /* Position it inside the input */
+  left: 10px; /* Adjust left positioning */
+  font-size: 20px; /* Adjust icon size */
+  color: #426B1F; /* Icon color */
+  cursor: pointer; /* Change cursor to pointer */
+}
+
+.send-icon {
+  cursor: pointer; /* Change cursor to pointer */
+  font-size: 24px; /* Adjust icon size */
+  color: #426B1F; /* Change color to match your theme */
+}
+
+.chat-messages {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; /* Align messages to the right */
+  margin-top: 20px; /* Space above messages */
+  flex: 1; /* Allow this section to take available space */
+  overflow-y: auto; /* Allow scrolling if messages exceed viewable area */
+}
+
+.user-message {
+  background-color: #d1e7dd; /* Light green background for user messages */
+  border-radius: 10px;
+  padding: 10px;
+  margin: 5px 0; /* Space between messages */
+  max-width: 70%; /* Limit width */
+  word-wrap: break-word; /* Prevent overflow */
+}
+.chatbot-right {
+  width: 80%; /* Takes up 80% of the width */
+  display: flex;
+  flex-direction: column;
+  padding: 20px; /* Padding around the content */
+  justify-content: space-between; /* Space elements vertically */
+  /*background-image: url('C:\Users\Loubna Bouzenzen\OneDrive\Bureau\prospera-app\src\Assets\women5.png'); /* Add your background image */
+  background-size: cover; /* Make the image cover the whole area */
+  background-repeat: no-repeat; /* Prevent the image from repeating */
+  background-color: rgba(255, 255, 255, 0.7); /* White with 70% opacity to lighten the image */
+}
+
+
