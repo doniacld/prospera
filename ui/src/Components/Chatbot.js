@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AiOutlinePaperClip } from "react-icons/ai";
 import { MdShare, MdSend } from "react-icons/md";
 import Logo from "../Assets/Logo.svg";
@@ -15,7 +15,50 @@ const Chatbot = () => {
       setMessage(""); // Clear the input
       setShowSuggestions(false); // Hide suggestions
     }
+
+    if (socket && message) {
+      console.log("Sending message:", message);
+      socket.send(message);
+      // setInput('');
+    }
   };
+
+  // const [messages, setMessages] = useState([]);
+  // const [input, setInput] = useState('');
+  let socket;
+
+  useEffect(() => {
+    // Initialize WebSocket connection
+    socket = new WebSocket('ws://localhost:8080/ws/salary?jobTitle=swe&experience=3&location=nice');
+
+    socket.onopen = () => {
+      console.log('WebSocket connected');
+      // Envoi d'un premier message (facultatif)
+      socket.send('Bonjour, je cherche des informations sur les salaires.');
+    };
+
+    socket.onerror = (error) => {
+      console.error("WebSocket error:", error);
+    };
+
+    socket.onclose = () => {
+      console.log("WebSocket connection closed");
+    };
+    //
+    // setWs(websocket);
+    //
+    socket.onmessage = (event) => {
+      setChatMessages((prevMessages) => [...prevMessages, event.data]);
+    };
+
+    // Cleanup WebSocket on component unmount
+    return () => {
+      if (socket) {
+        socket.close();
+      }
+    };
+  }, []);
+
 
   return (
     <div className="chatbot-container">
