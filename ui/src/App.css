@@ -530,52 +530,70 @@ nav {
   height: 100vh; /* Make it full height */
 }
 
+/* Chat History part (left)*/
 .chatbot-left {
-  width: 20%; /* Adjusted to 20% */
-  padding: 20px; /* Add some padding */
-  border-right: 1px solid #ccc; /* Optional: Add a divider */
+  width: 20%;
+  padding: 20px;
+  border-right: 1px solid #ccc;
   display: flex;
-  flex-direction: column; /* Stack elements vertically */
-  background-color: rgba(66, 107, 31, 0.2); /* Light green background (adjust alpha for brightness) */
+  flex-direction: column;
+  background-color: rgba(66, 107, 31, 0.2);
+}
+.date-divider {
+  font-size: 14px;
+  color: #666;
+  text-align: center;
+  margin: 10px 0;
+  font-weight: bold;
 }
 
+.timestamp {
+  font-size: 12px;
+  color: #888;
+  position: absolute;
+  bottom: 5px;
+  right: 10px;
+}
 .chat-history-title {
-  font-size: 20px; /* Size for the title */
-  margin-bottom: 10px; /* Spacing below the title */
+  font-size: 20px;
+  margin-bottom: 10px;
 }
 
 .chat-history {
-  max-height: 80%; /* Limit height for scrolling */
-  overflow-y: auto; /* Allow scrolling */
-  padding: 10px; /* Padding inside chat history */
-  background-color: #f0f0f0; /* Light background color */
-  border-radius: 10px; /* Rounded corners */
+  max-height: 80%;
+  overflow-y: auto;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border-radius: 10px;
 }
 
 .chat-message {
-  margin: 5px 0; /* Space between messages */
-  padding: 10px; /* Padding inside message */
-  background-color: #ffffff; /* Background for messages */
-  border-radius: 5px; /* Rounded corners for messages */
+  margin: 5px 0;
+  padding: 10px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  position: relative;
 }
 
 .chatbot-right {
   width: 80%; /* Adjust to take the rest of the space */
   display: flex;
   flex-direction: column;
-  padding: 20px; /* Add some padding */
-  justify-content: space-between; /* Space elements vertically */
+  padding: 20px;
+  justify-content: space-between;
+  background-color: #f6f6f6;
 }
 
+/* Header Section */
 .chatbot-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px; /* Spacing below header */
+  margin-bottom: 20px;
 }
 
 .prospera-text {
-  font-size: 24px; /* Adjust size */
+  font-size: 24px;
   font-weight: bold;
 }
 
@@ -584,38 +602,63 @@ nav {
   align-items: center;
 }
 
-.profile-name {
-  margin-right: 10px; /* Space between name and icon */
+.profile-circle {
+  width: 40px; /* Set width to a fixed size */
+  height: 40px; /* Set height to match width */
+  border-radius: 50%;
+  margin-right: 10px;
+  object-fit: cover;
 }
 
-.suggestions-section {
-  display: flex; /* Change to flex for horizontal layout */
-  justify-content: center; /* Center items horizontally */
-  align-items: center; /* Center items vertically */
-  margin: 20px 0; /* Spacing around suggestions */
+.add-chat-icon {
+  font-size: 20px;
+  color: #426B1F;
+  cursor: pointer;
+  padding: 8px; /* Adjust padding for better alignment */
+  border: 1px solid #426B1F;
+  border-radius: 25%; /* Change to a perfect circle */
+  transition: background-color 0.2s;
 }
 
-.prospera-logo {
-  width: 100px; /* Adjust width */
-  margin-bottom: 10px; /* Space below logo */
-  align-items: center;
+.plus-icon:hover {
+  background-color: #c5e1a5;
+}
+
+/* Suggestions Section */
+
+.suggestion-options {
+  display: flex;
+  gap: 20px; /* Add spacing between suggestion boxes */
 }
 
 .suggestion-box {
-  width: 250px; /* Set a fixed width */
-  border: 2px solid #426B1F; /* Border color */
-  border-radius: 10px; /* Rounded corners */
-  padding: 10px; /* Padding inside box */
+  border: 2px solid #426B1F;
+  border-radius: 10px;
+  padding: 10px;
   display: flex;
   align-items: center;
-  background-color: #f9f9f9; /* Light background */
-  margin: 0 10px; /* Space between boxes horizontally */
+  background-color: #f9f9f9;
 }
+
+.suggestions-section {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  height: 100%; /* Make the section take full height */
+}
+
+.prospera-logo {
+  width: 100px;
+  margin-bottom: 10px;
+}
+
+
 
 .suggestion-box span {
-  margin-left: 5px; /* Space between icon and text */
+  margin-left: 5px;
 }
 
+/* Chat Messages */
 .input-section {
   display: flex;
   align-items: center;
@@ -668,16 +711,142 @@ nav {
   max-width: 70%; /* Limit width */
   word-wrap: break-word; /* Prevent overflow */
 }
-.chatbot-right {
-  width: 80%; /* Takes up 80% of the width */
+
+/* Input Section */
+.input-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #426B1F 20%, #d4e157);
+  padding: 40px;
+  box-sizing: border-box;
+}
+
+.input-form {
+  width: 100%;
+  max-width: 900px; /* Adjusted width for larger form area */
+  background:#f6f6f6;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.input-form-title {
+  font-size: 28px;
+  font-weight: bold;
+  color: #426B1F;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Adjusted logo styling */
+.logo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.logo img {
+  height: 60px; /* Smaller logo size */
+}
+
+/* Grid layout for form fields */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.input-field {
+  position: relative;
   display: flex;
   flex-direction: column;
-  padding: 20px; /* Padding around the content */
-  justify-content: space-between; /* Space elements vertically */
-  /*background-image: url('C:\Users\Loubna Bouzenzen\OneDrive\Bureau\prospera-app\src\Assets\women5.png'); /* Add your background image */
-  background-size: cover; /* Make the image cover the whole area */
-  background-repeat: no-repeat; /* Prevent the image from repeating */
-  background-color: rgba(255, 255, 255, 0.7); /* White with 70% opacity to lighten the image */
+}
+
+.salary-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px; /* Space between fields */
+}
+
+.salary-input {
+  flex: 1; /* Allow the input to take up available space */
+  min-width: 200px; /* Minimum width for the input */
+  max-width: 400px; /* Max width to prevent it from being too wide */
+  padding: 15px; /* Add padding for comfort */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 20px; /* Increase font size for better readability */
+}
+
+.currency-select {
+  width: 150px; /* Make the currency select wider */
+  padding: 15px; /* Add padding */
+  margin-left: 10px; /* Space between input and select */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 20px; /* Increase font size for consistency */
 }
 
 
+.input-field label {
+  font-weight: bold;
+  color: #426B1F;
+  margin-bottom: 8px;
+}
+
+.input-field input,
+.input-field select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.input-field input:focus,
+.input-field select:focus {
+  border: 1px solid #426B1F;
+  outline: none;
+}
+
+.suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 0 0 5px 5px;
+  max-height: 150px;
+  overflow-y: auto;
+  z-index: 10;
+}
+
+.suggestion-item {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.suggestion-item:hover {
+  background: #d4e157;
+}
+
+.submit-button {
+  width: 100%;
+  padding: 12px;
+  background-color: #426B1F;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  grid-column: span 2;
+}
+
+.submit-button:hover {
+  background-color: #365c16;
+}

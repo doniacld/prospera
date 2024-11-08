@@ -24,7 +24,7 @@ const Home = () => {
 
   // Function to handle button click
   const handleLetsGoClick = () => {
-    navigate("/chatbot"); // Navigate to the chatbot page
+    navigate("/input-form"); // Navigate to the chatbot page
   };
 
   return (
