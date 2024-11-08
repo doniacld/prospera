@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/doniacld/prospera/app/chat"
 	"log"
 
 	"github.com/gin-contrib/cors"
@@ -22,6 +23,8 @@ func main() {
 		AllowHeaders:     []string{"Origin", "Content-Type", "Accept"},
 		AllowCredentials: true,
 	}))
+
+	r.GET("/chat/history", chat.GetHistoryHandler)
 
 	// TODO not sure if we need it
 	r.GET("/salary", salary.StartNegotiationHandler)
