@@ -96,5 +96,23 @@ Maybe I should use the chat stream.
 
 - Testing the websocket chat implemented yesterday, tuning it with nice intro messages
 - Testing with a basic frontend to see what it looks like
-- 
 
+# 07.10.24
+
+- Did not write since a long moment BUT we have been working in the background
+- I am impressed by what Loubna is able to do on the frontend side and even her knowledge about ML and models
+- I am so happy that I can teach her some stuff: git, maarkdown, how to document your code, 
+Notion use nice tool to collaborate
+- I am sad we did not have the time to explore more about Gemma because she has good knowledge to bring on the table
+- Today, we plugged backend and frontend using websocket and her code
+- Next step are:
+  - Clean all the calls to the backend from the frontend
+  - Store all the chats and values properly
+  - Dockerize
+  - Login is definetely a nice to have since we do not have much time left...
+
+# 08.10.24
+
+- After a long day rock climbing I achieved some little steps
+- Update the frontend to handle chat history
+- Add a new endpoint on the backend 
