@@ -1,21 +1,16 @@
-import React, { useState } from "react"; 
-import { useNavigate } from "react-router-dom"; // Import useNavigate
-import LogoImage from "../Assets/Logo.svg"; 
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import LogoImage from "../Assets/Logo.svg";
 
-const positions = ["Software Engineer", "Data Scientist", "Product Manager", "UX Designer", "DevOps Engineer"];
 const diplomas = ["Bachelor's", "Master's", "PhD"];
-const industries = ["Technology", "Finance", "Healthcare", "Education", "Retail", "Real Estate"];
-const locationSuggestions = ["Dubai", "New York", "San Francisco", "London", "Berlin", "Tokyo"];
-const currencies = ["USD", "EUR", "AED", "GBP", "JPY"];
+const industries = ["Technology", "Finance", "Healthcare", "Education", "Retail", "Real Estate", "Other Options"];
 
 const InputForm = () => {
-  const navigate = useNavigate(); // Initialize navigate hook
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     currentSalary: "",
-    currentSalaryCurrency: "USD",
     desiredSalary: "",
-    desiredSalaryCurrency: "USD",
     desiredPosition: "",
     yearsOfExperience: "",
     location: "",
@@ -23,39 +18,45 @@ const InputForm = () => {
     industry: "",
     major: "",
     diploma: "",
+    currency: "USD",
   });
 
   const [suggestedLocations, setSuggestedLocations] = useState([]);
-  const [suggestedIndustries, setSuggestedIndustries] = useState([]);
+
+  const fetchLocationSuggestions = async (query) => {
+    if (!query) return;
+    try {
+      const response = await fetch(`https://api.positionstack.com/v1/forward?access_key=YOUR_ACCESS_KEY&query=${query}`);
+      const data = await response.json();
+      setSuggestedLocations(data.data.map((item) => item.name));
+    } catch (error) {
+      console.error("Error fetching locations:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (formData.location) {
+      fetchLocationSuggestions(formData.location);
+    }
+  }, [formData.location]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
-    if ((name === "currentSalary" || name === "desiredSalary" || name === "yearsOfExperience") && value < 0) {
-      alert("Value must be a positive number");
-      return;
-    }
-
     setFormData({ ...formData, [name]: value });
-
-    if (name === "location") {
-      setSuggestedLocations(locationSuggestions.filter(loc => loc.toLowerCase().startsWith(value.toLowerCase())));
-    }
-
-    if (name === "industry") {
-      setSuggestedIndustries(industries.filter(ind => ind.toLowerCase().includes(value.toLowerCase())));
-    }
   };
 
   const handleSelectSuggestion = (name, value) => {
     setFormData({ ...formData, [name]: value });
     setSuggestedLocations([]);
-    setSuggestedIndustries([]);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigate("/chatbot"); // Navigate to the chatbot page
+    navigate("/chatbot");
+  };
+
+  const handleBack = () => {
+    navigate(-1);
   };
 
   return (
@@ -69,69 +70,41 @@ const InputForm = () => {
 
         <form onSubmit={handleSubmit} className="form-grid">
           <div className="input-field">
-            <label>Current Salary</label>
-            <div className="salary-group">
-              <input
-                type="number"
-                name="currentSalary"
-                className="salary-input"
-                required
-                value={formData.currentSalary}
-                onChange={handleChange}
-              />
-              <select
-                name="currentSalaryCurrency"
-                className="currency-select"
-                value={formData.currentSalaryCurrency}
-                onChange={handleChange}
-              >
-                {currencies.map(currency => (
-                  <option key={currency} value={currency}>{currency}</option>
-                ))}
-              </select>
-            </div>
+            <label>Current Salary (USD) *</label>
+            <input
+              type="number"
+              name="currentSalary"
+              required
+              value={formData.currentSalary}
+              onChange={handleChange}
+            />
           </div>
 
           <div className="input-field">
-            <label>Desired Salary</label>
-            <div className="salary-group">
-              <input
-                type="number"
-                name="desiredSalary"
-                className="salary-input"
-                value={formData.desiredSalary}
-                onChange={handleChange}
-              />
-              <select
-                name="desiredSalaryCurrency"
-                className="currency-select"
-                value={formData.desiredSalaryCurrency}
-                onChange={handleChange}
-              >
-                {currencies.map(currency => (
-                  <option key={currency} value={currency}>{currency}</option>
-                ))}
-              </select>
-            </div>
+            <label>Desired Salary (USD) *</label>
+            <input
+              type="number"
+              name="desiredSalary"
+              required
+              value={formData.desiredSalary}
+              onChange={handleChange}
+            />
           </div>
 
           <div className="input-field">
-            <label>Desired Position</label>
-            <select
+            <label>Desired Position *</label>
+            <input
+              type="text"
               name="desiredPosition"
               required
               value={formData.desiredPosition}
               onChange={handleChange}
-            >
-              <option value="" disabled>Select your position</option>
-              {positions.map(position => (
-                <option key={position} value={position}>{position}</option>
-              ))}
-            </select>
+              placeholder="Type your desired position"
+            />
           </div>
 
           <div className="input-field">
-            <label>Years of Experience</label>
+            <label>Years of Experience *</label>
             <input
               type="number"
               name="yearsOfExperience"
@@ -142,21 +115,23 @@ const InputForm = () => {
           </div>
 
           <div className="input-field">
-            <label>Location</label>
+            <label>Location *</label>
             <input
               type="text"
               name="location"
               required
               value={formData.location}
               onChange={handleChange}
+              placeholder="Type your location"
             />
             {suggestedLocations.length > 0 && (
-              <div className="suggestions">
-                {suggestedLocations.map(location => (
+              <div className="suggestions" style={{ position: "absolute", zIndex: "1", backgroundColor: "#f9f9f9", border: "1px solid #ccc", borderRadius: "4px", marginTop: "5px" }}>
+                {suggestedLocations.map((location) => (
                   <div
                     key={location}
                     className="suggestion-item"
                     onClick={() => handleSelectSuggestion("location", location)}
+                    style={{ padding: "8px", cursor: "pointer" }}
                   >
                     {location}
                   </div>
@@ -165,12 +140,12 @@ const InputForm = () => {
             )}
           </div>
 
+          {/* Optional Fields */}
           <div className="input-field">
             <label>Skills</label>
             <input
               type="text"
               name="skills"
-              required
               value={formData.skills}
               onChange={handleChange}
             />
@@ -178,26 +153,18 @@ const InputForm = () => {
 
           <div className="input-field">
             <label>Industry</label>
-            <input
-              type="text"
+            <select
               name="industry"
-              required
               value={formData.industry}
               onChange={handleChange}
-            />
-            {suggestedIndustries.length > 0 && (
-              <div className="suggestions">
-                {suggestedIndustries.map(industry => (
-                  <div
-                    key={industry}
-                    className="suggestion-item"
-                    onClick={() => handleSelectSuggestion("industry", industry)}
-                  >
-                    {industry}
-                  </div>
-                ))}
-              </div>
-            )}
+            >
+              <option value="" disabled>Select your industry</option>
+              {industries.map((industry) => (
+                <option key={industry} value={industry}>
+                  {industry}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div className="input-field">
@@ -205,7 +172,6 @@ const InputForm = () => {
             <input
               type="text"
               name="major"
-              required
               value={formData.major}
               onChange={handleChange}
             />
@@ -215,19 +181,65 @@ const InputForm = () => {
             <label>Diploma</label>
             <select
               name="diploma"
-              required
               value={formData.diploma}
               onChange={handleChange}
             >
               <option value="" disabled>Select your diploma</option>
-              {diplomas.map(diploma => (
-                <option key={diploma} value={diploma}>{diploma}</option>
+              {diplomas.map((diploma) => (
+                <option key={diploma} value={diploma}>
+                  {diploma}
+                </option>
               ))}
             </select>
           </div>
-
-          <button type="submit" className="submit-button">Next</button> {/* Changed type to submit */}
         </form>
+
+        {/* Form Buttons */}
+        <div className="form-buttons" style={{ display: "flex", justifyContent: "center", gap: "20px", marginTop: "30px" }}>
+          <button
+            type="button"
+            onClick={handleBack}
+            style={{
+              padding: "12px 25px",
+              borderRadius: "8px",
+              border: "none",
+              background: "linear-gradient(145deg, #3a5e1c, #4a7d22)",
+              boxShadow: "4px 4px 8px #334d19, -4px -4px 8px #5a8e28",
+              color: "#fff",
+              fontWeight: "bold",
+              fontSize: "16px",
+              cursor: "pointer",
+              transition: "all 0.3s ease",
+              width: "120px",
+            }}
+            onMouseOver={(e) => (e.target.style.background = "linear-gradient(145deg, #36561b, #426b1f)")}
+            onMouseOut={(e) => (e.target.style.background = "linear-gradient(145deg, #3a5e1c, #4a7d22)")}
+          >
+            Back
+          </button>
+
+          <button
+            type="submit"
+            onClick={handleSubmit}
+            style={{
+              padding: "12px 25px",
+              borderRadius: "8px",
+              border: "none",
+              background: "linear-gradient(145deg, #426B1F, #5a8e28)",
+              boxShadow: "4px 4px 8px #334d19, -4px -4px 8px #6b9f30",
+              color: "#fff",
+              fontWeight: "bold",
+              fontSize: "16px",
+              cursor: "pointer",
+              transition: "all 0.3s ease",
+              width: "120px",
+            }}
+            onMouseOver={(e) => (e.target.style.background = "linear-gradient(145deg, #36561b, #426b1f)")}
+            onMouseOut={(e) => (e.target.style.background = "linear-gradient(145deg, #426B1F, #5a8e28)")}
+          >
+            Submit
+          </button>
+        </div>
       </div>
     </div>
   );

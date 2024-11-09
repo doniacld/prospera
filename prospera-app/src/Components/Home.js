@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import Navbar from "./Navbar";
-import { FiArrowRight } from "react-icons/fi";
+import Contact from "./Contact";  // Import the Contact component
+import Work from "./Work";        // Import the Work component
+import About from "./About";
 import Banner1 from "../Assets/women1.png";
 import Banner2 from "../Assets/women2.png";
 import Banner3 from "../Assets/women3.png";
@@ -29,21 +30,33 @@ const Home = () => {
 
   return (
     <div className="home-container">
-      <Navbar />
+    
+      {/* Banner Section */}
       <div className="home-banner-container">
-        {/* Image slider section */}
         <div className="home-slider-container">
           <img src={images[currentImage]} alt="Slider" className="slider-image" />
           <div className="overlay-text">
-            <h1 className="primary-heading">Empowering you to earn <br />what you deserve.</h1>
-            <button className="lets-go-button" onClick={handleLetsGoClick}> {/* Attach the click handler */}
+            <h1 className="primary-heading">
+              Empowering you to earn <br /> what you deserve.
+            </h1>
+            <button className="lets-go-button" onClick={handleLetsGoClick}>
               Let's Go!
             </button>
           </div>
         </div>
       </div>
+      {/*About section */}
+      
+      {/* Work Section */}
+      <Work />  {/* Add the Work section here */}
+
+      {/* Contact Section */}
+      <Contact />  {/* Add the Contact section here */}
+
     </div>
+    
   );
 };
 
 export default Home;
+

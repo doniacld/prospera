@@ -16,6 +16,7 @@ img {
   max-width: 1900px;
   margin: 0rem auto;
 }
+
 body {
   max-width: 100%;
   overflow-x: hidden;
@@ -24,61 +25,93 @@ body {
 body {
   background-color: #f6f6f6;
 }
-
+/*Navbar styling */ 
+/* Navbar styling */
 nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-height: 90px;
+  min-height: 70px;
+  padding: 0 2rem;
+  background-color: #f8f9fa; /* Light background color */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
-.navbar-menu-container {
-  display: none;
+
+.nav-logo-container img {
+  width: 120px;
 }
+
+.navbar-links-container {
+  display: flex;
+  gap: 2rem;
+}
+
 .navbar-links-container a {
-  margin-right: 3rem;
+  color: #333; /* Darker neutral color */
+  font-size: 1rem;
+  font-weight: 500;
   text-decoration: none;
-  color: black;
-  font-size: 1.1rem;
-  font-weight: 600;
+  position: relative;
+  transition: color 0.3s ease;
 }
-.primary-button {
-  padding: 0.9rem 1.75rem;
-  background-color: white;
-  outline: none;
-  border: none;
-  border-radius: 5rem;
-  font-size: 1.1rem;
-  cursor: pointer;
-  font-weight: 600;
-  transition: 0.2s;
+
+.navbar-links-container a:hover {
+  color: #426B1F; /* Accent color */
 }
-.navbar-cart-icon {
-  font-size: 1.15rem;
-}
-.primary-button:hover {
-  background-color: rgb(234, 234, 234);
-}
-.navbar-menu-container svg {
-  font-size: 1.5rem;
-  cursor: pointer;
-}
+
 .navbar-link {
-  text-decoration: none;
-  padding: 10px 15px; /* spacing around the link */
-  border-radius: 5px; /* round corners */
+  padding: 10px 15px;
+  border-radius: 5px;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.navbar-link:hover {
-  background-color: #426B1F; /* change background on hover */
-  color: white; /* change text color */
-}
-
+.navbar-link:hover,
 .navbar-link.active {
-  background-color: #426B1F; /* active state background */
-  color: white; /* active state text color */
+  background-color: #426B1F;
+  color: white;
 }
 
+.primary-button {
+  padding: 0.7rem 1.5rem;
+  background-color: #426B1F;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.primary-button:hover {
+  background-color: #355315;
+}
+
+.navbar-menu-container {
+  display: none; /* Default hidden for larger screens */
+}
+
+@media (max-width: 768px) {
+  .navbar-links-container {
+    display: none; /* Hide links on smaller screens */
+  }
+
+  .navbar-menu-container {
+    display: flex;
+  }
+}
+
+.navbar-menu-container svg {
+  font-size: 1.8rem;
+  color: #333;
+  cursor: pointer;
+}
+
+  
+/*Home Page */
 .home-container {
   position: relative;
   width: 100vw;
@@ -524,12 +557,15 @@ nav {
 
 /* Chat Bot Page Styling */
 
+/* Chat Bot Page Styling */
+
 .chatbot-container {
   display: flex;
-  height: 100vh; /* Full height */
+  height: 100vh;
+  transition: all 0.3s ease;
 }
 
-/* Chat History part (left)*/
+/* Chat History part (left) */
 .chatbot-left {
   width: 20%;
   padding: 20px;
@@ -537,7 +573,9 @@ nav {
   display: flex;
   flex-direction: column;
   background-color: rgba(66, 107, 31, 0.2);
+  transition: all 0.3s ease;
 }
+
 .date-divider {
   font-size: 14px;
   color: #666;
@@ -553,6 +591,7 @@ nav {
   bottom: 5px;
   right: 10px;
 }
+
 .chat-history-title {
   font-size: 20px;
   margin-bottom: 10px;
@@ -564,6 +603,7 @@ nav {
   padding: 10px;
   background-color: #f0f0f0;
   border-radius: 10px;
+  animation: fadeIn 0.5s ease-out;
 }
 
 .chat-message {
@@ -572,9 +612,20 @@ nav {
   background-color: #ffffff;
   border-radius: 5px;
   position: relative;
+  animation: slideIn 0.5s ease-out;
 }
 
-/*Right Part of the Chatbot*/
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes slideIn {
+  0% { transform: translateX(-100%); opacity: 0; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+
+/* Right Part of the Chatbot */
 .chatbot-right {
   width: 80%;
   display: flex;
@@ -582,6 +633,7 @@ nav {
   padding: 20px;
   justify-content: space-between;
   background-color: #f6f6f6;
+  transition: all 0.3s ease;
 }
 
 /* Header Section */
@@ -603,32 +655,38 @@ nav {
 }
 
 .profile-circle {
-  width: 40px; /* Set width to a fixed size */
-  height: 40px; /* Set height to match width */
+  width: 40px; 
+  height: 40px; 
   border-radius: 50%;
   margin-right: 10px;
   object-fit: cover;
+  transition: transform 0.2s ease;
+}
+
+.profile-circle:hover {
+  transform: scale(1.1); /* Hover effect for profile image */
 }
 
 .add-chat-icon {
   font-size: 20px;
   color: #426B1F;
   cursor: pointer;
-  padding: 8px; /* Adjust padding for better alignment */
+  padding: 8px;
   border: 1px solid #426B1F;
-  border-radius: 25%; /* Change to a perfect circle */
-  transition: background-color 0.2s;
+  border-radius: 25%;
+  transition: background-color 0.2s, transform 0.2s;
 }
 
-.plus-icon:hover {
+.add-chat-icon:hover {
   background-color: #c5e1a5;
+  transform: rotate(45deg); /* Rotating effect on hover */
 }
 
 /* Suggestions Section */
-
 .suggestion-options {
   display: flex;
-  gap: 20px; /* Add spacing between suggestion boxes */
+  gap: 20px;
+  animation: fadeIn 0.5s ease-out;
 }
 
 .suggestion-box {
@@ -638,21 +696,26 @@ nav {
   display: flex;
   align-items: center;
   background-color: #f9f9f9;
+  transition: all 0.3s ease;
+}
+
+.suggestion-box:hover {
+  background-color: #d1e7dd;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Shadow effect on hover */
+  transform: scale(1.05); /* Slight zoom effect */
 }
 
 .suggestions-section {
   display: flex;
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
-  height: 100%; /* Make the section take full height */
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 
 .prospera-logo {
   width: 100px;
   margin-bottom: 10px;
 }
-
-
 
 .suggestion-box span {
   margin-left: 5px;
@@ -662,85 +725,138 @@ nav {
 .input-section {
   display: flex;
   align-items: center;
-  margin-top: auto; /* Push input section to the bottom */
+  margin-top: auto;
 }
 
 .input-with-icon {
   display: flex;
   align-items: center;
-  position: relative; /* To position the icon */
-  flex: 1; /* Take available space */
+  position: relative;
+  flex: 1;
 }
 
 .message-input {
-  width: 100%; /* Ensure the input takes full width */
-  border: 2px solid #426B1F; /* Border color */
-  border-radius: 10px; /* Rounded corners */
-  padding: 10px 40px 10px 40px; /* Add padding to make space for the icon */
-  margin-right: 10px; /* Space between input and send icon */
+  width: 100%;
+  border: 2px solid #426B1F;
+  border-radius: 10px;
+  padding: 10px 40px 10px 40px;
+  margin-right: 10px;
+  font-size: 16px;
+  transition: background-color 0.2s ease;
+}
+
+.message-input:focus {
+  background-color: #f1f1f1;
 }
 
 .attach-icon {
-  position: absolute; /* Position it inside the input */
-  left: 10px; /* Adjust left positioning */
-  font-size: 20px; /* Adjust icon size */
-  color: #426B1F; /* Icon color */
-  cursor: pointer; /* Change cursor to pointer */
+  position: absolute;
+  left: 10px;
+  font-size: 20px;
+  color: #426B1F;
+  cursor: pointer;
 }
 
 .send-icon {
-  cursor: pointer; /* Change cursor to pointer */
-  font-size: 24px; /* Adjust icon size */
-  color: #426B1F; /* Change color to match your theme */
+  cursor: pointer;
+  font-size: 24px;
+  color: #426B1F;
+  transition: transform 0.2s ease;
+}
+
+.send-icon:hover {
+  transform: scale(1.1); /* Slight zoom-in effect */
 }
 
 .chat-messages {
   display: flex;
   flex-direction: column;
-  align-items: flex-end; /* Align messages to the right */
-  margin-top: 20px; /* Space above messages */
-  flex: 1; /* Allow this section to take available space */
-  overflow-y: auto; /* Allow scrolling if messages exceed viewable area */
+  align-items: flex-end;
+  margin-top: 20px;
+  flex: 1;
+  overflow-y: auto;
 }
 
 .user-message {
-  background-color: #d1e7dd; /* Light green background for user messages */
+  background-color: #d1e7dd;
   border-radius: 10px;
   padding: 10px;
-  margin: 5px 0; /* Space between messages */
-  max-width: 70%; /* Limit width */
-  word-wrap: break-word; /* Prevent overflow */
+  margin: 5px 0;
+  max-width: 70%;
+  word-wrap: break-word;
+  animation: slideIn 0.5s ease-out;
 }
 
 /* Input Section */
+/* Input Section */
+/* Container with Background Image and Transparency */
 .input-form-container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: linear-gradient(135deg, #426B1F 20%, #d4e157);
+  background: url('./Assets/women5.png') no-repeat center center fixed;
+  background-size: cover;
   padding: 40px;
   box-sizing: border-box;
+  position: relative;
+}
+
+.input-form-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(66, 107, 31, 0.7); /* Overlay with greenish tint */
+  z-index: 1;
+  animation: fadeInOverlay 1s forwards; /* Fade-in overlay animation */
+}
+
+@keyframes fadeInOverlay {
+  from {
+    background: rgba(66, 107, 31, 0);
+  }
+  to {
+    background: rgba(66, 107, 31, 0.7);
+  }
 }
 
 .input-form {
+  position: relative;
   width: 100%;
-  max-width: 900px; /* Adjusted width for larger form area */
-  background:#f6f6f6;
-  padding: 40px;
+  max-width: 600px;
+  background: #f6f6f6;
+  padding: 30px;
   border-radius: 10px;
   box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 2;
+  animation: fadeIn 1s ease-out;
 }
 
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Title */
 .input-form-title {
-  font-size: 28px;
+  font-size: 1.5rem;
   font-weight: bold;
-  color: #426B1F;
+  color: #2e5902;
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
-/* Adjusted logo styling */
+/* Logo */
 .logo {
   display: flex;
   justify-content: center;
@@ -748,80 +864,135 @@ nav {
 }
 
 .logo img {
-  height: 60px; /* Smaller logo size */
+  height: 50px; /* Smaller logo size */
+  opacity: 0.9;
+  transition: transform 0.3s ease-in-out;
 }
 
-/* Grid layout for form fields */
+.logo img:hover {
+  transform: scale(1.1); /* Hover effect */
+}
+
+/* Grid for Form Fields */
 .form-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 20px;
+  gap: 15px;
 }
-
-.input-field {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-}
-
-.salary-group {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px; /* Space between fields */
-}
-
-.salary-input {
-  flex: 1; /* Allow the input to take up available space */
-  min-width: 200px; /* Minimum width for the input */
-  max-width: 400px; /* Max width to prevent it from being too wide */
-  padding: 15px; /* Add padding for comfort */
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 20px; /* Increase font size for better readability */
-}
-
-.currency-select {
-  width: 150px; /* Make the currency select wider */
-  padding: 15px; /* Add padding */
-  margin-left: 10px; /* Space between input and select */
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 20px; /* Increase font size for consistency */
-}
-
 
 .input-field label {
   font-weight: bold;
-  color: #426B1F;
-  margin-bottom: 8px;
+  color: #365c16;
+  margin-bottom: 6px;
 }
 
 .input-field input,
 .input-field select {
   width: 100%;
   padding: 12px;
-  border: 1px solid #ccc;
+  border: 1px solid #bdbdbd;
   border-radius: 5px;
   font-size: 16px;
+  transition: border 0.3s;
+  animation: fadeInUp 0.5s ease-in-out; /* Entrance animation */
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .input-field input:focus,
 .input-field select:focus {
-  border: 1px solid #426B1F;
+  border-color: #8bc34a;
+  box-shadow: 0 0 10px rgba(139, 195, 74, 0.7);
   outline: none;
 }
 
+/* Placeholder Transition Effect */
+.input-field input::placeholder,
+.input-field select::placeholder {
+  transition: opacity 0.3s ease;
+}
+
+.input-field input:focus::placeholder,
+.input-field select:focus::placeholder {
+  opacity: 0.5;
+}
+
+/* Currency Input */
+.currency-input {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.currency-input input {
+  width: calc(100% - 30px); /* Leave space for flag icon */
+  margin-right: 8px;
+}
+
+.currency-suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  max-height: 150px;
+  overflow-y: auto;
+  background-color: white;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+  scroll-behavior: smooth; /* Smooth scrolling */
+}
+
+.currency-suggestion-item {
+  padding: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.currency-suggestion-item:hover {
+  background-color: #f0f0f0;
+}
+
+.currency-suggestion-item img {
+  width: 20px;
+  margin-right: 10px;
+}
+
+/* Suggestions */
 .suggestions {
   position: absolute;
   top: 100%;
   left: 0;
   right: 0;
-  background: white;
+  background: #f6f6f6;
   border: 1px solid #ccc;
   border-radius: 0 0 5px 5px;
   max-height: 150px;
   overflow-y: auto;
   z-index: 10;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+  animation: slideIn 0.3s ease-out; /* Slide-in animation */
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .suggestion-item {
@@ -830,23 +1001,234 @@ nav {
 }
 
 .suggestion-item:hover {
-  background: #d4e157;
+  background: #e1f5fe;
 }
 
-.submit-button {
-  width: 100%;
+/* Button Group */
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 20px; /* More space between buttons */
+  margin-top: 20px;
+}
+
+.submit-button,
+.back-button {
+  flex: 1;
   padding: 12px;
-  background-color: #426B1F;
-  color: white;
+  color: #ffffff;
   border: none;
   border-radius: 5px;
   font-size: 18px;
   font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.3s;
-  grid-column: span 2;
+  transition: transform 0.2s, background-color 0.3s, box-shadow 0.3s; /* Added box-shadow */
+}
+
+.submit-button {
+  background-color: #426B1F;
 }
 
 .submit-button:hover {
   background-color: #365c16;
+  transform: scale(1.03);
+  box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.2); /* Depth effect on hover */
+}
+
+.back-button {
+  background-color: #b0bec5;
+}
+
+.back-button:hover {
+  background-color: #90a4ae;
+  transform: scale(1.03);
+  box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.2); /* Depth effect on hover */
+}
+
+/* Responsive Design for Form */
+@media (max-width: 768px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .input-field input,
+  .input-field select {
+    width: 100%;
+  }
+
+  .currency-input input {
+    width: 100%;
+    margin-right: 0;
+  }
+}
+
+
+/* Results Page Styling */
+/* Results Page Styling */
+.salary-boxes-container {
+  display: flex;
+  justify-content: space-evenly; /* Evenly space the boxes */
+  gap: 20px; /* Increased gap between boxes */
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding: 20px 0; /* Increased padding for better spacing */
+}
+
+.salary-box {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border-radius: 12px; /* Increased border-radius for rounded corners */
+  padding: 12px; /* Added more padding for spacious look */
+  min-width: 180px; /* Adjusted min-width */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Added transition */
+  opacity: 0;
+  animation: fadeIn 0.5s ease-out forwards; /* Fade-in animation */
+}
+
+.salary-box:hover {
+  transform: translateY(-5px); /* Lift effect */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.salary-box-image img {
+  width: 40px; /* Slightly larger image */
+  height: 40px;
+  margin-right: 15px;
+}
+
+.salary-box-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.salary-title {
+  font-size: 14px; /* Slightly larger font for the title */
+  color: #696666;
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+
+.salary-value {
+  font-size: 18px; /* Increased font size for better readability */
+  font-weight: bold;
+  color: #333;
+}
+
+/* Keyframe for the fade-in effect */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* the button */
+/* the button */
+.try-again-button {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px; /* Increased space above the button */
+}
+
+.try-again-button button {
+  background-color: #426B1F; /* App theme color */
+  color: #ffffff;
+  border: none;
+  border-radius: 8px; /* Smaller border radius */
+  padding: 16px 32px; /* Larger padding */
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.try-again-button button:hover {
+  background-color: #426B1F; /* Slightly darker green */
+  transform: scale(1.05); /* Slight zoom-in effect */
+  box-shadow: 0px 8px 18px rgba(0, 0, 0, 0.15); /* Darker shadow */
+}
+
+.try-again-button button:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(101, 193, 110, 0.4); /* Highlight focus ring */
+}
+
+
+/* Add title for the chart */
+.chart-title {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #696666;
+  margin-bottom: 20px;
+}
+
+
+/*More about the chat*/
+
+/* Loading indicator style */
+.loading-indicator {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  padding-left: 10px;
+  font-size: 0.9rem;
+  color: #777;
+}
+
+.spinner {
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #3498db;
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+  animation: spin 1s linear infinite;
+  margin-left: 10px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Date divider style */
+.date-divider {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #aaa;
+  margin-top: 20px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+}
+
+/* User message style */
+.chat-message.user-message {
+  text-align: right;
+  background-color: #d1f7d1;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  max-width: 75%;
+}
+
+.chat-message.bot-message {
+  text-align: left;
+  background-color: #f0f0f0;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  max-width: 75%;
+}
+
+.timestamp {
+  font-size: 0.8rem;
+  color: #888;
+  margin-left: 10px;
 }

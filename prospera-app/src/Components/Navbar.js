@@ -1,6 +1,6 @@
 import React, { useState } from "react";
+import { Link, useLocation } from "react-router-dom"; // Import useLocation
 import Logo from "../Assets/Logo.svg";
-import { BsCart2 } from "react-icons/bs";
 import { HiOutlineBars3 } from "react-icons/hi2";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
@@ -11,46 +11,54 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import HomeIcon from "@mui/icons-material/Home";
-import InfoIcon from "@mui/icons-material/Info";
-import CommentRoundedIcon from "@mui/icons-material/CommentRounded";
-import PhoneRoundedIcon from "@mui/icons-material/PhoneRounded";
-import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import BarChartIcon from "@mui/icons-material/BarChart";
 
 const Navbar = () => {
   const [openMenu, setOpenMenu] = useState(false);
-  const [activeIndex, setActiveIndex] = useState(0); // Default active item (My Profile)
+  const location = useLocation(); // Get current route location
 
-  const handleNavClick = (index) => {
-    setActiveIndex(index);
+  // Define menu items
+  const menuOptions = [
+    { text: "Home", icon: <HomeIcon />, path: "/" },
+    { text: "Begin", icon: <PlayArrowIcon />, path: "/input-form" },
+    { text: "Results", icon: <BarChartIcon />, path: "/results" },
+  ];
+
+  // Determine active index based on the current location
+  const getActiveIndex = () => {
+    const currentPath = location.pathname;
+    const activeIndex = menuOptions.findIndex(item => item.path === currentPath);
+    return activeIndex !== -1 ? activeIndex : 0; // Default to 'Home' if not found
   };
 
-  const menuOptions = [
-    { text: "Salary Benchmark" },
-    { text: "Negotiation" },
-    { text: "About Us" },
-    { text: "My Profile" },
-  ];
+  const activeIndex = getActiveIndex(); // Get the active index dynamically
 
   return (
     <nav>
       <div className="nav-logo-container">
-        <img src={Logo} alt="" />
+        <img src={Logo} alt="Logo" />
       </div>
+
+      {/* Desktop Navigation Links */}
       <div className="navbar-links-container">
         {menuOptions.map((item, index) => (
-          <a
-            href="#"
+          <Link
+            to={item.path}
             key={index}
             className={`navbar-link ${activeIndex === index ? "active" : ""}`}
-            onClick={() => handleNavClick(index)}
           >
             {item.text}
-          </a>
+          </Link>
         ))}
       </div>
+
+      {/* Mobile Menu Icon */}
       <div className="navbar-menu-container">
         <HiOutlineBars3 onClick={() => setOpenMenu(true)} />
       </div>
+
+      {/* Drawer for Mobile View */}
       <Drawer open={openMenu} onClose={() => setOpenMenu(false)} anchor="right">
         <Box
           sx={{ width: 250 }}
@@ -61,10 +69,8 @@ const Navbar = () => {
           <List>
             {menuOptions.map((item, index) => (
               <ListItem key={item.text} disablePadding>
-                <ListItemButton onClick={() => handleNavClick(index)}>
-                  <ListItemIcon>
-                    {index === 0 ? <HomeIcon /> : <InfoIcon />}
-                  </ListItemIcon>
+                <ListItemButton component={Link} to={item.path}>
+                  <ListItemIcon>{item.icon}</ListItemIcon>
                   <ListItemText primary={item.text} />
                 </ListItemButton>
               </ListItem>
