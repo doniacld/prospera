@@ -116,3 +116,9 @@ Notion use nice tool to collaborate
 - After a long day rock climbing I achieved some little steps
 - Update the frontend to handle chat history
 - Add a new endpoint on the backend 
+- Explore prompt engineering for the first time! https://www.promptengineering4u.com/learning/techniques/template-based-prompting 
+
+# 11.10.24
+
+- I learned today about prompting and how to format one.  https://cloud.google.com/vertex-ai/generative-ai/docs/learn/prompts/prompt-templates
+- During this hackathon I learned more about websocket.
