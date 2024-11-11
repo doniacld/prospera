@@ -24,16 +24,19 @@ func main() {
 		AllowCredentials: true,
 	}))
 
+	// TODO DONIA:  KEEP
+	r.POST("/salary/benchmark", salary.PostSalaryBenchmarkHandler)
+	// Websocket endpoints to chat with Prospera
+	r.GET("/ws/salary", salary.SalaryChatWebsocketHandler)
+
+	// TODO DONIA: SORT
 	r.GET("/chat/history", chat.GetHistoryHandler)
 
 	// TODO not sure if we need it
 	r.GET("/salary", salary.StartNegotiationHandler)
 	r.GET("/negotiation", negotiation.StartNegotiationHandler)
 
-	r.POST("/salary/benchmark", salary.PostSalaryBenchmarkHandler)
-
 	// Websocket endpoints to chat with Prospera
-	r.GET("/ws/salary", salary.SalaryChatWebsocketHandler)
 	r.GET("/ws/negotiation", negotiation.NegotiationChatWebsocketHandler)
 
 	// start server

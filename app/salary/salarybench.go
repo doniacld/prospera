@@ -1,19 +1,20 @@
 package salary
 
 import (
+	"github.com/google/uuid"
 	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
 
-var SalaryBenchmarkPerUser map[string]Benchmark
+var UserDetails map[string]Details
 
 func NewSalaryBenchmark() {
-	SalaryBenchmarkPerUser = make(map[string]Benchmark)
+	UserDetails = make(map[string]Details)
 }
 
-type Benchmark struct {
+type Details struct {
 	UserID          string   `json:"userId"`
 	JobTitle        string   `json:"jobTitle"`
 	YearsExperience int      `json:"YearsExperience"`
@@ -27,30 +28,35 @@ type Benchmark struct {
 }
 
 func PostSalaryBenchmarkHandler(c *gin.Context) {
-	sb := Benchmark{}
+	sb := Details{}
 	if err := c.ShouldBindJSON(&sb); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request data"})
 		return
 	}
 
-	err := addSalaryBenchmark(sb)
+	userID, err := addSalaryBenchmark(sb)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 	}
 
 	// Return the response as JSON
-	c.JSON(http.StatusOK, gin.H{"response": ""})
+	c.JSON(http.StatusOK, gin.H{"userId": userID})
 }
 
-func addSalaryBenchmark(sb Benchmark) error {
-	_, ok := SalaryBenchmarkPerUser[sb.UserID]
+func addSalaryBenchmark(sb Details) (string, error) {
+	_, ok := UserDetails[sb.UserID]
 	if !ok {
-		SalaryBenchmarkPerUser[sb.UserID] = sb
-		log.Println("Salary Benchmark Added for " + sb.UserID)
+		sb.UserID = uuid.NewString()
+		UserDetails[sb.UserID] = sb
+		log.Println("Salary Details Added for " + sb.UserID)
 	} else {
-		SalaryBenchmarkPerUser[sb.UserID] = sb
-		log.Println("Salary Benchmark Updated for " + sb.UserID)
+		UserDetails[sb.UserID] = sb
+		log.Println("Salary Details Updated for " + sb.UserID)
 	}
 
-	return nil
+	log.Printf("Salary Details Added for %v \n", sb)
+
+	log.Println("Salary Details Added for " + sb.UserID)
+
+	return sb.UserID, nil
 }
