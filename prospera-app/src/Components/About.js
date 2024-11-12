@@ -10,7 +10,7 @@ const About = () => {
         <img src={AboutBackground} alt="" />
       </div>
       <div className="about-section-image-container">
-        <img src={AboutBackgroundImage} alt="" style={{ width: '80%', height: 'auto' }} /> {/* Adjusted size */}
+        
       </div>
       <div className="about-section-text-container">
         <h1 className="primary-heading">What we Believe?</h1>

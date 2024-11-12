@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { MdSend } from 'react-icons/md';
-import Logo from '../Assets/salary_bench.png';
+import Logo from '../Assets/Logo.svg';
 import backgroundImg from '../Assets/women5.png';
 import botAvatar from '../Assets/bot.png'; 
-import { Link } from 'react-router-dom';  
+import { Link } from 'react-router-dom'; 
 import backIcon from '../Assets/undo.png'; 
 
-const ChatSalary = () => {
+const ChatNegotiation = () => {
   const [message, setMessage] = useState('');
   const [chatMessages, setChatMessages] = useState([]);
 
@@ -37,7 +37,7 @@ const ChatSalary = () => {
 
       <div className="chat-container">
         <div className="chatbot-header">
-        <h2 className="chat-title">Salary Benchmark</h2>
+        <h2 className="chat-title">Negotiation Salary</h2>
         </div>
 
         <div className="chat-messages">
@@ -70,7 +70,7 @@ const ChatSalary = () => {
             onChange={(e) => setMessage(e.target.value)}
           />
           <button className="send-button" onClick={handleSendMessage}>
-            <span></span> <MdSend className="send-icon" />
+            <span>Send</span> <MdSend className="send-icon" />
           </button>
         </div>
       </div>
@@ -78,4 +78,4 @@ const ChatSalary = () => {
   );
 };
 
-export default ChatSalary;
+export default ChatNegotiation;
