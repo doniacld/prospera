@@ -19,7 +19,8 @@ const profiles = [
   {
     name: "Donia Chaiehloudj",
     description:
-      "I'm a dedicated researcher with a passion for computational modeling and optimization algorithms. I'm focused on applying cutting-edge techniques to real-world problems.",
+      "Donia is a senior software engineer with an expertise on Go and distributed systems. \nPassionate about tech and people, Donia is part of tech communities running events and conferences. She is also the co-author of \"Learn Go with Pocket-Sized Projects\" at Manning.",
+
     img: donia, 
     socialLinks: {
       linkedin: "https://www.linkedin.com/in/donia-chaiehloudj/",
