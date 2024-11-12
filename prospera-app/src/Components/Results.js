@@ -33,9 +33,9 @@ const Results = () => {
     useEffect(() => {
         const fetchSalaryData = async () => {
             try {
+                const storedUserId = localStorage.getItem("userId");
                 const response = await axios.get(
-                    // `http://localhost:8080/salary/benchmark?userId=${userId}`
-                        `http://localhost:8080/salary/benchmark?userId=ca311f15-583c-4870-ace3-17be9d0f6969`
+                    `http://localhost:8080/salary/benchmark?userId=${storedUserId}`
                 );
                 const data = response.data;
 

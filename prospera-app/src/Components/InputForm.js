@@ -83,6 +83,7 @@ const InputForm = () => {
       Diploma: formData.diploma,
     };
 
+
     try {
       // Send POST request
       const response = await axios.post("http://localhost:8080/salary/benchmark", payload, {
@@ -90,6 +91,9 @@ const InputForm = () => {
           "Content-Type": "application/json",
         },
       });
+
+      const receivedUserId = response.data.userId;
+      localStorage.setItem("userId", receivedUserId); // Save userId in localStorage
 
       // Navigate or handle the response as needed
       console.log("Response from backend:", response.data);
