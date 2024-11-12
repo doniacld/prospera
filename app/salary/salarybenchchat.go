@@ -10,6 +10,7 @@ import (
 	"github.com/gorilla/websocket"
 
 	"github.com/doniacld/prospera/app/gemini"
+	"github.com/doniacld/prospera/app/user"
 )
 
 var upgrader = websocket.Upgrader{
@@ -19,7 +20,7 @@ var upgrader = websocket.Upgrader{
 // SalaryChatWebsocketHandler is the websocket endpoint handler for salary benchmark chat.
 func SalaryChatWebsocketHandler(c *gin.Context) {
 	userID := c.Query("userID")
-	userDetails, ok := UserDetails[userID]
+	userDetails, ok := user.SalaryInfoPerUser[userID]
 	if !ok {
 		http.Error(c.Writer, "User not found", http.StatusBadRequest)
 	}

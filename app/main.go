@@ -1,20 +1,28 @@
 package main
 
 import (
-	"github.com/doniacld/prospera/app/chat"
 	"log"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 
 	"github.com/doniacld/prospera/app/negotiation"
 	"github.com/doniacld/prospera/app/salary"
+	"github.com/doniacld/prospera/app/tips"
+	"github.com/doniacld/prospera/app/user"
 )
 
 func main() {
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Failed to load environment variables :", err)
+		return
+	}
+
 	r := gin.Default()
 
-	salary.NewSalaryBenchmark()
+	user.NewSalaryInfoPerUser()
 
 	// Configure CORS
 	r.Use(cors.New(cors.Config{
@@ -24,23 +32,16 @@ func main() {
 		AllowCredentials: true,
 	}))
 
-	// TODO DONIA:  KEEP
+	// Endpoint to store user salary info
 	r.POST("/salary/benchmark", salary.PostSalaryBenchmarkHandler)
+
 	// Websocket endpoints to chat with Prospera
 	r.GET("/ws/salary", salary.SalaryChatWebsocketHandler)
-
-	// TODO DONIA: SORT
-	r.GET("/chat/history", chat.GetHistoryHandler)
-
-	// TODO not sure if we need it
-	r.GET("/salary", salary.StartNegotiationHandler)
-	r.GET("/negotiation", negotiation.StartNegotiationHandler)
-
-	// Websocket endpoints to chat with Prospera
 	r.GET("/ws/negotiation", negotiation.NegotiationChatWebsocketHandler)
+	r.GET("/ws/tips", tips.TipsChatWebsocketHandler)
 
 	// start server
-	err := r.Run(":8080")
+	err = r.Run(":8080")
 	if err != nil {
 		log.Fatalf("Could not start server: %s", err)
 	}

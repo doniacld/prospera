@@ -1,16 +1,19 @@
 package salary
 
-import "fmt"
+import (
+	"fmt"
+	"github.com/doniacld/prospera/app/user"
+)
 
-func buildPrompt(userDetails Details) string {
+func buildPrompt(user user.SalaryInfo) string {
 	promptStr := ""
-	promptStr += fmt.Sprintf("I am a %s with %d years of experience in the field of %s.\n", userDetails.JobTitle, userDetails.YearsExperience, userDetails.Industry)
-	promptStr += fmt.Sprintf("I am currently looking for new opportunities in %s.\n", userDetails.Location)
-	promptStr += fmt.Sprintf("I am currently paid %d.\n", userDetails.CurrentSalary)
-	promptStr += fmt.Sprintf("I am aiming to earn more with a target of a next salary of %d.\n", userDetails.DesiredSalary)
-	promptStr += fmt.Sprintf("I have the following skills: %s.\n", userDetails.Skills)
-	promptStr += fmt.Sprintf("I have a major in %s.\n", userDetails.Major)
-	promptStr += fmt.Sprintf("I am graduated in %s.\n", userDetails.Diploma)
+	promptStr += fmt.Sprintf("I am a %s with %d years of experience in the field of %s.\n", user.JobTitle, user.YearsExperience, user.Industry)
+	promptStr += fmt.Sprintf("I am currently looking for new opportunities in %s.\n", user.Location)
+	promptStr += fmt.Sprintf("I am currently paid %d.\n", user.CurrentSalary)
+	promptStr += fmt.Sprintf("I am aiming to earn more with a target of a next salary of %d.\n", user.DesiredSalary)
+	promptStr += fmt.Sprintf("I have the following skills: %s.\n", user.Skills)
+	promptStr += fmt.Sprintf("I have a major in %s.\n", user.Major)
+	promptStr += fmt.Sprintf("I am graduated in %s.\n", user.Diploma)
 
 	// Add a constant ending note for the format
 	endingNote := `
