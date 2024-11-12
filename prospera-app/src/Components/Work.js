@@ -8,12 +8,12 @@ const Work = () => {
     {
       image: PickMeals,
       title: "Input Your Information",
-      text: "Upload your CV or connect with LinkedIn, or enter your job title, location, etc.",
+      text: "Enter your job title, location, desired salary etc.",
     },
     {
       image: ChooseMeals,
       title: "Data Retrieval",
-      text: "Prospera retrieves your data, and the AI model compares your input with industry benchmarks. ",
+      text: "Prospera retrieves your data, and the Gemini AI model compares your input with industry benchmarks. ",
     },
     {
       image: DeliveryMeals,

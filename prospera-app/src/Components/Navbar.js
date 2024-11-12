@@ -16,13 +16,14 @@ import BarChartIcon from "@mui/icons-material/BarChart";
 
 const Navbar = () => {
   const [openMenu, setOpenMenu] = useState(false);
-  const location = useLocation(); // Get current route location
-
+  const location = useLocation(); 
   // Define menu items
   const menuOptions = [
     { text: "Home", icon: <HomeIcon />, path: "/" },
-    { text: "Begin", icon: <PlayArrowIcon />, path: "/input-form" },
+    { text: "Your Info", icon: <PlayArrowIcon />, path: "/input-form" },
+    { text: "Chat", icon: <PlayArrowIcon />, path: "/chatsuggestions" },  
     { text: "Results", icon: <BarChartIcon />, path: "/results" },
+    { text: "About", icon: <PlayArrowIcon />, path: "/about-us" }, 
   ];
 
   // Determine active index based on the current location

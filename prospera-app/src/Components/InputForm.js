@@ -52,7 +52,25 @@ const InputForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigate("/chatbot");
+    
+    // Validation to check for required fields
+    const requiredFields = [
+      'currentSalary',
+      'desiredSalary',
+      'desiredPosition',
+      'yearsOfExperience',
+      'location',
+    ];
+    
+    for (let field of requiredFields) {
+      if (!formData[field]) {
+        alert(`Please fill out the required field: ${field.replace(/([A-Z])/g, ' $1').toUpperCase()}`);
+        return;  
+      }
+    }
+
+    // If all required fields are filled, navigate to the next page
+    navigate("/chatsuggestions");
   };
 
   const handleBack = () => {
@@ -63,7 +81,7 @@ const InputForm = () => {
     <div className="input-form-container">
       <div className="input-form">
         <div className="logo">
-          <img src={LogoImage} alt="App Logo" />
+         
         </div>
 
         <h2 className="input-form-title">Input Your Information</h2>
@@ -77,6 +95,7 @@ const InputForm = () => {
               required
               value={formData.currentSalary}
               onChange={handleChange}
+              min="0"
             />
           </div>
 
@@ -88,6 +107,7 @@ const InputForm = () => {
               required
               value={formData.desiredSalary}
               onChange={handleChange}
+              min="0"
             />
           </div>
 
@@ -111,6 +131,7 @@ const InputForm = () => {
               required
               value={formData.yearsOfExperience}
               onChange={handleChange}
+              min="0"
             />
           </div>
 

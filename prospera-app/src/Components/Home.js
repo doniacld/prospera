@@ -1,20 +1,19 @@
 import React, { useState, useEffect } from "react";
-import Contact from "./Contact";  // Import the Contact component
-import Work from "./Work";        // Import the Work component
+import Contact from "./Contact"; 
+import Work from "./Work";       
 import About from "./About";
 import Banner1 from "../Assets/women1.png";
 import Banner2 from "../Assets/women2.png";
 import Banner3 from "../Assets/women3.png";
 import Banner4 from "../Assets/women4.png";
 import Banner5 from "../Assets/women5.png";
-import { useNavigate } from "react-router-dom"; // Import useNavigate hook
-
+import { useNavigate } from "react-router-dom"; 
 const Home = () => {
   const [currentImage, setCurrentImage] = useState(0);
-  const images = [Banner5, Banner2, Banner3, Banner4, Banner1];
+  const images = [ Banner2, Banner3, Banner4, Banner1];
 
-  const navigate = useNavigate(); // Initialize navigate hook
-
+  const navigate = useNavigate(); 
+  
   // Automatically switch images every 5 seconds
   useEffect(() => {
     const interval = setInterval(() => {
