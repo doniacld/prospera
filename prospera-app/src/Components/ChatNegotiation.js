@@ -14,7 +14,7 @@ const ChatNegotiation = () => {
   const [ws, setWs] = useState(null);
 
   useEffect(() => {
-    const socket = new WebSocket('ws://localhost:8080/ws/negotiation?userID=e751935c-f3e1-436f-a191-3796491fe225');
+    const socket = new WebSocket('ws://localhost:8080/ws/negotiation?userID=67c508b7-7bec-4782-a86e-a4c4f1786e06');
 
     socket.onopen = () => {
       console.log('WebSocket connected');

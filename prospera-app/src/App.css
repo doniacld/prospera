@@ -1300,7 +1300,8 @@ nav {
 
 .chat-container {
   width: 90%;
-  max-width: 800px; 
+  max-width: 1200px;
+  max-height: 1200px;
   background-color: #f6f6f6;
   border-radius: 15px;
   padding: 20px;

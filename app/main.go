@@ -34,6 +34,7 @@ func main() {
 
 	// Endpoint to store user salary info
 	r.POST("/salary/benchmark", salary.PostSalaryBenchmarkHandler)
+	r.GET("/salary/benchmark", salary.GetSalaryBenchmarkHandler)
 
 	// Websocket endpoints to chat with Prospera
 	r.GET("/ws/salary", salary.SalaryChatWebsocketHandler)
