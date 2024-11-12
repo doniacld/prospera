@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import LogoImage from "../Assets/Logo.svg";
+import axios from "axios"; // Import Axios
 
 const diplomas = ["Bachelor's", "Master's", "PhD"];
 const industries = ["Technology", "Finance", "Healthcare", "Education", "Retail", "Real Estate", "Other Options"];
@@ -9,6 +9,7 @@ const InputForm = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
+    userId: "12345", // Static userId for now; adjust as needed
     currentSalary: "",
     desiredSalary: "",
     desiredPosition: "",
@@ -18,7 +19,6 @@ const InputForm = () => {
     industry: "",
     major: "",
     diploma: "",
-    currency: "USD",
   });
 
   const [suggestedLocations, setSuggestedLocations] = useState([]);
@@ -50,9 +50,9 @@ const InputForm = () => {
     setSuggestedLocations([]);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     // Validation to check for required fields
     const requiredFields = [
       'currentSalary',
@@ -61,16 +61,44 @@ const InputForm = () => {
       'yearsOfExperience',
       'location',
     ];
-    
+
     for (let field of requiredFields) {
       if (!formData[field]) {
         alert(`Please fill out the required field: ${field.replace(/([A-Z])/g, ' $1').toUpperCase()}`);
-        return;  
+        return;
       }
     }
 
-    // If all required fields are filled, navigate to the next page
-    navigate("/chatsuggestions");
+    // Prepare the JSON data for the POST request
+    const payload = {
+      userId: formData.userId,
+      jobTitle: formData.desiredPosition,
+      YearsExperience: parseInt(formData.yearsOfExperience),
+      Location: formData.location,
+      CurrentSalary: parseInt(formData.currentSalary),
+      DesiredSalary: parseInt(formData.desiredSalary),
+      Skills: formData.skills.split(",").map((skill) => skill.trim()), // Converts comma-separated string into an array
+      Industry: formData.industry,
+      Major: formData.major,
+      Diploma: formData.diploma,
+    };
+
+    try {
+      // Send POST request
+      const response = await axios.post("http://localhost:8080/salary/benchmark", payload, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      // Navigate or handle the response as needed
+      console.log("Response from backend:", response.data);
+      navigate("/chatsuggestions"); // Redirect if successful
+
+    } catch (error) {
+      console.error("Error submitting data:", error);
+      alert("There was an error submitting the data. Please try again.");
+    }
   };
 
   const handleBack = () => {
@@ -78,191 +106,146 @@ const InputForm = () => {
   };
 
   return (
-    <div className="input-form-container">
-      <div className="input-form">
-        <div className="logo">
-         
-        </div>
+      <div className="input-form-container">
+        <div className="input-form">
+          <h2 className="input-form-title">Input Your Information</h2>
 
-        <h2 className="input-form-title">Input Your Information</h2>
+          <form onSubmit={handleSubmit} className="form-grid">
+            <div className="input-field">
+              <label>Current Salary (USD) *</label>
+              <input
+                  type="number"
+                  name="currentSalary"
+                  required
+                  value={formData.currentSalary}
+                  onChange={handleChange}
+                  min="0"
+              />
+            </div>
 
-        <form onSubmit={handleSubmit} className="form-grid">
-          <div className="input-field">
-            <label>Current Salary (USD) *</label>
-            <input
-              type="number"
-              name="currentSalary"
-              required
-              value={formData.currentSalary}
-              onChange={handleChange}
-              min="0"
-            />
-          </div>
+            <div className="input-field">
+              <label>Desired Salary (USD) *</label>
+              <input
+                  type="number"
+                  name="desiredSalary"
+                  required
+                  value={formData.desiredSalary}
+                  onChange={handleChange}
+                  min="0"
+              />
+            </div>
 
-          <div className="input-field">
-            <label>Desired Salary (USD) *</label>
-            <input
-              type="number"
-              name="desiredSalary"
-              required
-              value={formData.desiredSalary}
-              onChange={handleChange}
-              min="0"
-            />
-          </div>
+            <div className="input-field">
+              <label>Desired Position *</label>
+              <input
+                  type="text"
+                  name="desiredPosition"
+                  required
+                  value={formData.desiredPosition}
+                  onChange={handleChange}
+                  placeholder="Type your desired position"
+              />
+            </div>
 
-          <div className="input-field">
-            <label>Desired Position *</label>
-            <input
-              type="text"
-              name="desiredPosition"
-              required
-              value={formData.desiredPosition}
-              onChange={handleChange}
-              placeholder="Type your desired position"
-            />
-          </div>
+            <div className="input-field">
+              <label>Years of Experience *</label>
+              <input
+                  type="number"
+                  name="yearsOfExperience"
+                  required
+                  value={formData.yearsOfExperience}
+                  onChange={handleChange}
+                  min="0"
+              />
+            </div>
 
-          <div className="input-field">
-            <label>Years of Experience *</label>
-            <input
-              type="number"
-              name="yearsOfExperience"
-              required
-              value={formData.yearsOfExperience}
-              onChange={handleChange}
-              min="0"
-            />
-          </div>
-
-          <div className="input-field">
-            <label>Location *</label>
-            <input
-              type="text"
-              name="location"
-              required
-              value={formData.location}
-              onChange={handleChange}
-              placeholder="Type your location"
-            />
-            {suggestedLocations.length > 0 && (
-              <div className="suggestions" style={{ position: "absolute", zIndex: "1", backgroundColor: "#f9f9f9", border: "1px solid #ccc", borderRadius: "4px", marginTop: "5px" }}>
-                {suggestedLocations.map((location) => (
-                  <div
-                    key={location}
-                    className="suggestion-item"
-                    onClick={() => handleSelectSuggestion("location", location)}
-                    style={{ padding: "8px", cursor: "pointer" }}
-                  >
-                    {location}
+            <div className="input-field">
+              <label>Location *</label>
+              <input
+                  type="text"
+                  name="location"
+                  required
+                  value={formData.location}
+                  onChange={handleChange}
+                  placeholder="Type your location"
+              />
+              {suggestedLocations.length > 0 && (
+                  <div className="suggestions" style={{ position: "absolute", zIndex: "1", backgroundColor: "#f9f9f9", border: "1px solid #ccc", borderRadius: "4px", marginTop: "5px" }}>
+                    {suggestedLocations.map((location) => (
+                        <div
+                            key={location}
+                            className="suggestion-item"
+                            onClick={() => handleSelectSuggestion("location", location)}
+                            style={{ padding: "8px", cursor: "pointer" }}
+                        >
+                          {location}
+                        </div>
+                    ))}
                   </div>
+              )}
+            </div>
+
+            {/* Optional Fields */}
+            <div className="input-field">
+              <label>Skills</label>
+              <input
+                  type="text"
+                  name="skills"
+                  value={formData.skills}
+                  onChange={handleChange}
+                  placeholder="Comma-separated skills"
+              />
+            </div>
+
+            <div className="input-field">
+              <label>Industry</label>
+              <select
+                  name="industry"
+                  value={formData.industry}
+                  onChange={handleChange}
+              >
+                <option value="" disabled>Select your industry</option>
+                {industries.map((industry) => (
+                    <option key={industry} value={industry}>
+                      {industry}
+                    </option>
                 ))}
-              </div>
-            )}
+              </select>
+            </div>
+
+            <div className="input-field">
+              <label>Major</label>
+              <input
+                  type="text"
+                  name="major"
+                  value={formData.major}
+                  onChange={handleChange}
+              />
+            </div>
+
+            <div className="input-field">
+              <label>Diploma</label>
+              <select
+                  name="diploma"
+                  value={formData.diploma}
+                  onChange={handleChange}
+              >
+                <option value="" disabled>Select your diploma</option>
+                {diplomas.map((diploma) => (
+                    <option key={diploma} value={diploma}>
+                      {diploma}
+                    </option>
+                ))}
+              </select>
+            </div>
+          </form>
+
+          <div className="form-buttons" style={{ display: "flex", justifyContent: "center", gap: "20px", marginTop: "30px" }}>
+            <button type="button" onClick={handleBack}>Back</button>
+            <button type="submit" onClick={handleSubmit}>Submit</button>
           </div>
-
-          {/* Optional Fields */}
-          <div className="input-field">
-            <label>Skills</label>
-            <input
-              type="text"
-              name="skills"
-              value={formData.skills}
-              onChange={handleChange}
-            />
-          </div>
-
-          <div className="input-field">
-            <label>Industry</label>
-            <select
-              name="industry"
-              value={formData.industry}
-              onChange={handleChange}
-            >
-              <option value="" disabled>Select your industry</option>
-              {industries.map((industry) => (
-                <option key={industry} value={industry}>
-                  {industry}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div className="input-field">
-            <label>Major</label>
-            <input
-              type="text"
-              name="major"
-              value={formData.major}
-              onChange={handleChange}
-            />
-          </div>
-
-          <div className="input-field">
-            <label>Diploma</label>
-            <select
-              name="diploma"
-              value={formData.diploma}
-              onChange={handleChange}
-            >
-              <option value="" disabled>Select your diploma</option>
-              {diplomas.map((diploma) => (
-                <option key={diploma} value={diploma}>
-                  {diploma}
-                </option>
-              ))}
-            </select>
-          </div>
-        </form>
-
-        {/* Form Buttons */}
-        <div className="form-buttons" style={{ display: "flex", justifyContent: "center", gap: "20px", marginTop: "30px" }}>
-          <button
-            type="button"
-            onClick={handleBack}
-            style={{
-              padding: "12px 25px",
-              borderRadius: "8px",
-              border: "none",
-              background: "linear-gradient(145deg, #3a5e1c, #4a7d22)",
-              boxShadow: "4px 4px 8px #334d19, -4px -4px 8px #5a8e28",
-              color: "#fff",
-              fontWeight: "bold",
-              fontSize: "16px",
-              cursor: "pointer",
-              transition: "all 0.3s ease",
-              width: "120px",
-            }}
-            onMouseOver={(e) => (e.target.style.background = "linear-gradient(145deg, #36561b, #426b1f)")}
-            onMouseOut={(e) => (e.target.style.background = "linear-gradient(145deg, #3a5e1c, #4a7d22)")}
-          >
-            Back
-          </button>
-
-          <button
-            type="submit"
-            onClick={handleSubmit}
-            style={{
-              padding: "12px 25px",
-              borderRadius: "8px",
-              border: "none",
-              background: "linear-gradient(145deg, #426B1F, #5a8e28)",
-              boxShadow: "4px 4px 8px #334d19, -4px -4px 8px #6b9f30",
-              color: "#fff",
-              fontWeight: "bold",
-              fontSize: "16px",
-              cursor: "pointer",
-              transition: "all 0.3s ease",
-              width: "120px",
-            }}
-            onMouseOver={(e) => (e.target.style.background = "linear-gradient(145deg, #36561b, #426b1f)")}
-            onMouseOut={(e) => (e.target.style.background = "linear-gradient(145deg, #426B1F, #5a8e28)")}
-          >
-            Submit
-          </button>
         </div>
       </div>
-    </div>
   );
 };
 
