@@ -1,20 +1,23 @@
-version: '3'
+version: '3.8'
 services:
   backend:
     build:
-      context: ./backend
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: app/Dockerfile
     ports:
       - "8080:8080"
-    command: ./main
+    container_name: prospera-backend
+    env_file:
+      - ./.env # Pointing to the .env file in the root directory
 
   frontend:
     build:
-      context: ./frontend
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: prospera-app/Dockerfile
     ports:
-      - "3000:3000"
+      - "3000:80" # Mapping port 80 of NGINX to localhost:3000
+    container_name: prospera-frontend
     environment:
-      - REACT_APP_API_URL=http://backend:8080 # TODO not sure we need it
+      - REACT_APP_API_URL=http://backend:8080
     depends_on:
       - backend

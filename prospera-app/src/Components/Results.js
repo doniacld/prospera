@@ -45,7 +45,7 @@ const Results = () => {
                     medianSalary: data.DesiredSalary, // Assuming this represents the median or desired salary
                     minSalary: data.minSalary || 45000, // Example fallback values
                     maxSalary: data.maxSalary || 70000,
-                    jobTitle: data.JobTitle,
+                    jobTitle: data.jobTitle,
                     location: data.Location,
                     yearsExperience: data.YearsExperience,
                 });

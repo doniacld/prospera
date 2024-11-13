@@ -5,7 +5,6 @@ import (
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
-	"github.com/joho/godotenv"
 
 	"github.com/doniacld/prospera/app/negotiation"
 	"github.com/doniacld/prospera/app/salary"
@@ -14,11 +13,11 @@ import (
 )
 
 func main() {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Failed to load environment variables :", err)
-		return
-	}
+	//err := godotenv.Load()
+	//if err != nil {
+	//	log.Fatal("Failed to load environment variables :", err)
+	//	return
+	//}
 
 	r := gin.Default()
 
@@ -42,7 +41,7 @@ func main() {
 	r.GET("/ws/tips", tips.TipsChatWebsocketHandler)
 
 	// start server
-	err = r.Run(":8080")
+	err := r.Run(":8080")
 	if err != nil {
 		log.Fatalf("Could not start server: %s", err)
 	}
