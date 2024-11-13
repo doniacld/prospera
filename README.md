@@ -1,4 +1,4 @@
-~~# **Prospera** - Empowering Women in Career Negotiation with AI
+# **Prospera** - Empowering Women in Career Negotiation with AI
 
 Prospera is an AI-driven application designed to help women confidently negotiate salaries and achieve financial equity. Leveraging Google’s Gemini AI, Prospera provides real-time salary benchmarking, personalized negotiation coaching, and career guidance tailored to individual needs and aspirations.
 
@@ -51,8 +51,6 @@ Prospera requires specific environment variables for API keys and configuration.
 
 2. Open `.env` and configure the required values:
     ```
-    env
-    Copier le code
     API_KEY=your_google_api_key_here
     ANOTHER_VARIABLE=another_value
     ```
@@ -119,7 +117,7 @@ Once Prospera is running, you can access the application through your browser:
 - **Tips Chat**: Interact with Prospera’s AI-driven coach for personalized advice.
 ![input](assets/5_boost_confidence_chat.png)
 
----~~
+---
 
 ## **Testing Prospera**
 
