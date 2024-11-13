@@ -1,11 +1,15 @@
 package negotiation
 
 import (
+	"context"
 	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
+
+	"github.com/doniacld/prospera/app/gemini"
+	"github.com/doniacld/prospera/app/user"
 )
 
 var upgrader = websocket.Upgrader{
@@ -14,37 +18,54 @@ var upgrader = websocket.Upgrader{
 
 // NegotiationChatWebsocketHandler is the websocket endpoint handler for negotiation chat
 func NegotiationChatWebsocketHandler(c *gin.Context) {
-	conn, err := upgrader.Upgrade(c.Writer, c.Request, nil) // Upgrade HTTP request to WebSocket
+	userID := c.Query("userID")
+	userDetails, ok := user.SalaryInfoPerUser[userID]
+	if !ok {
+		http.Error(c.Writer, "User not found", http.StatusBadRequest)
+	}
+
+	// Upgrade HTTP request to WebSocket
+	ws, err := upgrader.Upgrade(c.Writer, c.Request, nil)
 	if err != nil {
 		http.Error(c.Writer, "Could not open websocket connection", http.StatusBadRequest)
 		return
 	}
-	defer conn.Close()
+	defer ws.Close()
+
+	log.Println("Negotiation Websocket connected")
+
+	// Generate AI response
+	chatInfo := gemini.NewChatInfo(userID)
+	aiResponse, err := gemini.InitiateChat(chatInfo, buildNegotiationCoachPrompt(userDetails))
+	if err != nil {
+		http.Error(c.Writer, "Could not generate Gemini AI Response", http.StatusInternalServerError)
+		return
+	}
+
+	msg := coachPromptIntro + aiResponse
+	err = ws.WriteMessage(websocket.TextMessage, []byte(msg))
+	if err != nil {
+		http.Error(c.Writer, "Could not write message", http.StatusInternalServerError)
+		return
+	}
 
 	for {
 		// Read message from user
-		_, msg, err := conn.ReadMessage()
+		_, msg, err := ws.ReadMessage()
 		if err != nil {
 			return
 		}
 
-		log.Println("Message received:", string(msg))
-
-		// Generate AI response (mock)
-		aiResponse, err := generateGeminiResponse(string(msg))
+		// Generate AI response
+		aiResponse, err := gemini.SendMessage(context.Background(), chatInfo, string(msg))
 		if err != nil {
 			http.Error(c.Writer, "Could not generate Gemini AI Response", http.StatusInternalServerError)
 			return
 		}
 
-		// Write message back to WebSocket
-		if err := conn.WriteMessage(websocket.TextMessage, []byte(aiResponse)); err != nil {
+		// Write message back to WebSocket (= user)
+		if err := ws.WriteMessage(websocket.TextMessage, []byte(aiResponse)); err != nil {
 			return
 		}
 	}
-}
-
-// TODO start with an intro message
-func generateGeminiResponse(msg string) (string, error) {
-	return "Implement me", nil
 }

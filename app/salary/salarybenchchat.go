@@ -1,10 +1,16 @@
 package salary
 
 import (
+	"context"
 	"fmt"
+	"log"
+	"net/http"
+
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
-	"net/http"
+
+	"github.com/doniacld/prospera/app/gemini"
+	"github.com/doniacld/prospera/app/user"
 )
 
 var upgrader = websocket.Upgrader{
@@ -14,7 +20,7 @@ var upgrader = websocket.Upgrader{
 // SalaryChatWebsocketHandler is the websocket endpoint handler for salary benchmark chat.
 func SalaryChatWebsocketHandler(c *gin.Context) {
 	userID := c.Query("userID")
-	sb, ok := SalaryBenchmarkPerUser[userID]
+	userDetails, ok := user.SalaryInfoPerUser[userID]
 	if !ok {
 		http.Error(c.Writer, "User not found", http.StatusBadRequest)
 	}
@@ -27,16 +33,26 @@ func SalaryChatWebsocketHandler(c *gin.Context) {
 	}
 	defer ws.Close()
 
-	intro := fmt.Sprintf("Hello! I hope you are doing well! Thanks for all the info, here is a recap"+
-		"Your job title is: %s, you have %d years of experience in your field and you live in %s area",
-		sb.JobTitle, sb.YearsExperience, sb.Location)
+	log.Println("Salary Websocket connected")
+
+	intro := fmt.Sprintf("Hello! Congrats for checking your value on the market! " +
+		"Let's see what the current salary ranges on the market for your profile.")
+
+	// Generate AI response
+	chatInfo := gemini.NewChatInfo(userID)
+	aiResponse, err := gemini.InitiateChat(chatInfo, buildPrompt(userDetails))
+	if err != nil {
+		http.Error(c.Writer, "Could not generate Gemini AI Response", http.StatusInternalServerError)
+		return
+	}
+
+	intro += aiResponse
 
 	err = ws.WriteMessage(websocket.TextMessage, []byte(intro))
 	if err != nil {
 		http.Error(c.Writer, "Could not write message", http.StatusInternalServerError)
 		return
 	}
-	fmt.Println("Salary Websocket connected")
 
 	for {
 		// Read message from user
@@ -45,21 +61,16 @@ func SalaryChatWebsocketHandler(c *gin.Context) {
 			return
 		}
 
-		// Generate AI response (mock)
-		aiResponse, err := generateGeminiResponse(string(msg))
+		// Generate AI response
+		aiResponse, err := gemini.SendMessage(context.Background(), chatInfo, string(msg))
 		if err != nil {
 			http.Error(c.Writer, "Could not generate Gemini AI Response", http.StatusInternalServerError)
 			return
 		}
 
-		// Write message back to WebSocket
+		// Write message back to WebSocket (= user)
 		if err := ws.WriteMessage(websocket.TextMessage, []byte(aiResponse)); err != nil {
 			return
 		}
 	}
-}
-
-// TODO start with an intro message
-func generateGeminiResponse(msg string) (string, error) {
-	return "TODO: Implement me", nil
 }
