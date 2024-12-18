@@ -4,9 +4,10 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/google/uuid"
 	"log"
 	"os"
+
+	"github.com/google/uuid"
 
 	"github.com/google/generative-ai-go/genai"
 	"google.golang.org/api/option"
@@ -86,12 +87,6 @@ func SendMessage(ctx context.Context, info ChatInfo, msg string) (string, error)
 	if !ok {
 		return "", errors.New("no chat session found")
 	}
-
-	if &chatSession == nil {
-		log.Println(">>>>> chatSession is nil", chatSession)
-	}
-
-	log.Println(">>>>> chat", *chatSession)
 
 	client, err := genai.NewClient(ctx, option.WithAPIKey(os.Getenv(googleApiKeyEnv)))
 	if err != nil {
